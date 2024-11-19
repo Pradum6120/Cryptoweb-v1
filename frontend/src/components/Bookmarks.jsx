@@ -4,7 +4,7 @@ function Bookmarks() {
   return (
     
     <>
-    <div>
+    <div className='flex h-screen w-screen'>
      
       <h1>bookmrks</h1>
       </div>

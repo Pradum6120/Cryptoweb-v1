@@ -31,8 +31,8 @@ const UserSchema = new Schema({
         {
             airdrop:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: " AirdropModel",
-                required: true
+                ref: "AirdropModel",
+                unique: true
             }
         }
      ],

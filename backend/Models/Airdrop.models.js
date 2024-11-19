@@ -72,11 +72,24 @@ const AirdropSchema = new Schema({
             user:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "user",
-                required: true
             }
         }
      ],
      pinnedCount:{
+        type: Number,
+        default:0
+     },
+
+     liked:[
+        {
+            user:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "user",
+            }
+        }
+     ],
+     
+     likedCount:{
         type: Number,
         default:0
      }

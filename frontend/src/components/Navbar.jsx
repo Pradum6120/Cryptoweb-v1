@@ -14,7 +14,7 @@ function Navbar() {
     setIsAuthenticated(true);
     setUserName('');
     navigate('/login'); // Redirect to login page after logout
-  };
+  };  
 
 
   return (

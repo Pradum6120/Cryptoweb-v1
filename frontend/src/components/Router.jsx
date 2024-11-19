@@ -12,6 +12,7 @@ import Adminairdrops from './Adminairdrops'
 import AdminAddAirdrop from './AdminAddAirdrop'
 import Layout from './Layout'
 import Sidenav from './Sidenav'
+import AirdropDetails from './AirdropDetails'
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
     <Route path = "login" element= {<Login/>}/>
     <Route path = "signup" element= {<SingnUp/>}/>
     <Route path = "airdrops" element= {<Airdrops/>}/>
+    <Route path = "airdrops/:id" element= {<AirdropDetails/>}/>
     <Route path = "bookmarks" element= {<Bookmarks/>}/>
     <Route path = "about" element= {<About/>}/>
      <Route path = "admin" element= {<Sidenav/>}>

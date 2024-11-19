@@ -13,39 +13,7 @@ router.post("/signup", signupValidation, signup);
 
 
  // uplaod on cloudinary
-cloudinary = CloudinaryFileUploder.fields([
-    { name: "profileimage", maxCount: 1 },
-    { name: "blogimage1", maxCount: 1 }
- ]), async (req, res, next) => {
-    try {
-        // Check if files are uploaded properly
-        if (!req.files || !req.files.profileimage || !req.files.blogimage1) {
-            return res.status(400).json({
-                message: "Failed to upload files. Please provide profileimage and blogimage1."
-            });
-        }
- 
-        // Retrieve file URLs
-        const profileImageUrl = req.files.profileimage[0].path;
-        const blogImage1Url = req.files.blogimage1[0].path;
- 
 
-        // Log files for debugging (you can remove this in production)
-        console.log('Uploaded files: ', profileImageUrl, blogImage1Url);
- 
-        // Pass file URLs to the next middleware (add controller)
-        req.body.profileimage = profileImageUrl;
-        req.body.blogimage1 = blogImage1Url;
- 
-        next();  // Call the `add` function
-    } catch (error) {
-        console.error('Error handling file uploads:', error);
-        return res.status(500).json({
-            message: "File upload failed",
-            error: error.message
-        });
-    }
- }
 
  
 // Admin role check middleware
@@ -87,7 +55,39 @@ router.delete('/deleteuser/:id', jwtAuthMiddleware, isAdmin, deleteuserbyid);
 router.post("/addtesting",jwtAuthMiddleware, isAdmin,add);
 
 // Add route with multiple image uploads
-router.post("/add",jwtAuthMiddleware, isAdmin, cloudinary,add);  // Now call the `add` function to handle the rest of the request
+router.post("/add",jwtAuthMiddleware, isAdmin,CloudinaryFileUploder.fields([
+    { name: "profileimage", maxCount: 1 },
+    { name: "blogimage1", maxCount: 1 }
+ ]), async (req, res, next) => {
+    try {
+        // Check if files are uploaded properly
+        if (!req.files || !req.files.profileimage || !req.files.blogimage1) {
+            return res.status(400).json({
+                message: "Failed to upload files. Please provide profileimage and blogimage1."
+            });
+        }
+ 
+        // Retrieve file URLs
+        const profileImageUrl = req.files.profileimage[0].path;
+        const blogImage1Url = req.files.blogimage1[0].path;
+ 
+
+        // Log files for debugging (you can remove this in production)
+        console.log('Uploaded files: ', profileImageUrl, blogImage1Url);
+ 
+        // Pass file URLs to the next middleware (add controller)
+        req.body.profileimage = profileImageUrl;
+        req.body.blogimage1 = blogImage1Url;
+ 
+        next();  // Call the `add` function
+    } catch (error) {
+        console.error('Error handling file uploads:', error);
+        return res.status(500).json({
+            message: "File upload failed",
+            error: error.message
+        });
+    }
+ },add);  // Now call the `add` function to handle the rest of the request
 
 // Route for showing all airdrops
 router.get("/", getallairdrop);
@@ -153,21 +153,26 @@ router.get("/pinned/:id", jwtAuthMiddleware, async(req,res)=>{
         if(user.role === 'admin'){
             return res.status(404).json({message:'admin cannot pinned'})
         }
-        if(user.isPinned){
-            return res.status(404).json({message:'you already pinned'}) 
+        
+
+        // checking if user already pinned the post
+        const isAlreadyPinned = user.pinned.some(pinnedPost => pinnedPost.airdrop.toString() === airdropid )
+
+        if(isAlreadyPinned) {
+            return res.status(400).json({ message: 'You have already pinned this post' });
         }
 
         
         // push the pinned user in airdrops and also push pinned airdrops in user
-        airdrop.pinned.push({user:userid})
+        airdrop.pinned.push({user:user})
         airdrop.pinnedCount++
         await airdrop.save()
         
-       user.pinned.push({airdrop:airdropid})
+       user.pinned.push({airdrop:airdrop})
        user.pinnedCount++
        await user.save();
 
-       return res.status().json({message:"pinned successfully",
+       return res.status(200).json({message:"pinned successfully",
         success: true
        })
 
@@ -184,7 +189,7 @@ router.get("/pinned/:id", jwtAuthMiddleware, async(req,res)=>{
 } )
 
 // total pinned count of each airdrop
-router.get("/pinned/count" , async (req,res)=>{
+router.get("/yo/count" , async (req,res)=>{
     try {
          const airdrop = await AirdropModel.find()
 
@@ -206,6 +211,87 @@ router.get("/pinned/count" , async (req,res)=>{
     }
 
 })
+
+
+// manage like on post & which user like post
+
+router.get("/liked/:id", jwtAuthMiddleware, async(req,res)=>{
+    const airdropid = req.params.id 
+    const userid = req.user.id
+try {
+ 
+  const airdrop = await AirdropModel.findById(airdropid);
+  if(!airdrop){
+      console.log(airdrop)
+      return res.status(404).json({message:'Candidate not found'})
+  }
+
+  const user = await UserModel.findById(userid)
+  if(!user){
+      return res.status(404).json({message:'user not found'}) 
+  }
+
+  if(user.role === 'admin'){
+      return res.status(404).json({message:'admin cannot pinned'})
+  }
+  
+
+  // checking if user already liked the post
+  const isAlreadyLiked = airdrop.liked.some(likedPost => likedPost.user.toString() === userid )
+
+  if(isAlreadyLiked) {
+      return res.status(400).json({ message: 'You have already Liked this post' });
+  }
+
+  
+  // push the Liked user in airdrops and also increase like count
+  airdrop.liked.push({user:user})
+  airdrop.likedCount++
+  await airdrop.save()
+
+
+ return res.status(200).json({message:"Liked successfully",
+  success: true
+ })
+
+
+} catch (error) {
+  res.status(500).json({
+      message: "failed to Liked! internal server error",
+      success: false,
+      error: error.message
+  })
+}
+
+
+} )
+
+
+// manage like count
+
+router.get("/likes/count" , async (req,res)=>{
+    try {
+         const airdrop = await AirdropModel.find()
+
+         const LikedRecord = airdrop.map((air)=>{
+               return {
+                airdrop : air.title,
+                totalLikedby : air.likedCount
+               }
+         })
+
+         return res.status(200).json(LikedRecord )
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "unable to fetch pinned count",
+            error: error.message
+        })
+        
+    }
+
+})
+
 
 
 

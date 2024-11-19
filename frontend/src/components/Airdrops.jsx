@@ -57,7 +57,7 @@ function Airdrops() {
       </div>
       
 
-        <Section airdrop = {airdrops.employees}  pagination ={ airdrops.pagination } /> 
+        <Section airdrop = {airdrops.employees}  pagination ={ airdrops.pagination}   fetchAirdrops = {fetchAirdrops}  /> 
       
       
     </div>
