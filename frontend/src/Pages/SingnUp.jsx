@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { handleError , handleSuccess} from './Utils'
+import { handleError , handleSuccess} from '../components/Utils'
 import { ToastContainer } from 'react-toastify'
 
 function SingnUp() {

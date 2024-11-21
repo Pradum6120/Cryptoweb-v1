@@ -41,7 +41,7 @@ export const AuthContext = createContext();
        console.error("error fetching user data") 
     }
  }
-
+ 
 
  useEffect(()=>{
   if(token){

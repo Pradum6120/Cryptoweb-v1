@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../store/auth'
-import Boxpinned from './Boxpinned'
+import Boxpinned from '../components/Boxpinned'
 
 function Bookmarks() {
   const [user, Setuser] = useState({})
@@ -39,7 +39,7 @@ function Bookmarks() {
       <div className='flex h-screen mt-24 w-[100%] justify-center gap-8 flex-wrap mb-36'>
         {user.pinnedPosts && user.pinnedPosts.length > 0 ? (
           user.pinnedPosts.map((post, index) => (
-            <Boxpinned key={index} posts={post} />
+            <Boxpinned key={index} posts={post}  />
           ))
         ) : (
           <div className='w-[500px] h-[400px]'>

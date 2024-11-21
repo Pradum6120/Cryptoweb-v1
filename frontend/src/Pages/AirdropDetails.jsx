@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Bigbox from './Bigbox'
-import Bigboxtwo from './Bigboxtwo'
+import Bigbox from '../components/Bigbox'
 import { getAirdropbyid } from '../api'
 
 function AirdropDetails() {

@@ -1,14 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
-import { BiSolidLike } from "react-icons/bi";
 import { SlLike } from "react-icons/sl";
 import { IoBookmark } from "react-icons/io5";
 import { useAuth } from '../store/auth';
 
-function Boxpinned({posts}) {
+function Boxpinned({posts, }) {
+
   const { AuthorizationToken } = useAuth()
 
-    const [liked, setLiked] = useState(false)
+  
 
     const handleUnpinned = async (id)=> {
         try{
@@ -42,9 +41,7 @@ function Boxpinned({posts}) {
      
       <div className='flex gap-10 items-center  '>
 
-        {liked ? <span className= "text-3xl text-green-400">
-       <BiSolidLike />
-       </span> : <span className= "text-3xl"> <SlLike /></span> }
+      <span className= "text-3xl"> <SlLike /></span> 
         
        
        

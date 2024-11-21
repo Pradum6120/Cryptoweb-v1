@@ -1,5 +1,5 @@
 import React from 'react';
-import Boxclone from './Boxclone';
+import Boxclone from '../components/Boxclone';
 import { useAuth } from '../store/auth';
 
  

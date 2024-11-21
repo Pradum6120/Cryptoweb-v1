@@ -1,6 +1,6 @@
 import React from 'react'
-import Bigbox from './Bigbox'
-import Bigboxtwo from './Bigboxtwo'
+import Bigbox from '../components/Bigbox'
+import Bigboxtwo from '../components/Bigboxtwo'
 
 function About() {
   return (
