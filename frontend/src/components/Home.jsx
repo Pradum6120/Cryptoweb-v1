@@ -5,7 +5,7 @@ import { useAuth } from '../store/auth';
  
 
 function Home() {
-  const {user, token} = useAuth()
+  const {user} = useAuth()
 
   
   return (

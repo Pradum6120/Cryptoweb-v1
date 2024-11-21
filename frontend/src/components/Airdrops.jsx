@@ -20,6 +20,8 @@ function Airdrops() {
 
   });
 
+  
+
   const fetchAirdrops = async (search='', page = 1, limit = 8 )=> {
     try {
 

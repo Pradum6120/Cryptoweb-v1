@@ -30,7 +30,7 @@ export const AuthContext = createContext();
 
        if(response.ok) {
            const data = await response.json()
-           console.log("userdata", data)
+           console.log("userdata", data.user.pinned)
            setUser(data.user.name)
        }
        else{

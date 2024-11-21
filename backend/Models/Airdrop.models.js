@@ -71,7 +71,7 @@ const AirdropSchema = new Schema({
         {
             user:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "user",
+                ref: "singnupuser",
             }
         }
      ],
@@ -84,7 +84,7 @@ const AirdropSchema = new Schema({
         {
             user:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "user",
+                ref: "singnupuser",
             }
         }
      ],

@@ -9,7 +9,7 @@ require('dotenv').config(); // Ensure you have your .env file for sensitive info
 
 const router = require("./Routes/routes"); // Import the controller for adding airdrops
 
-const PORT = process.env.PORT || 8000; 
+const PORT = process.env.PORT; 
 
 // Middleware setup
 app.use(cors())

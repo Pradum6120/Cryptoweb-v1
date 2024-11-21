@@ -128,8 +128,44 @@ router.put("/:id", jwtAuthMiddleware, isAdmin, CloudinaryFileUploder.fields([
 router.get('/:id', getairdropbyid);
 
 
+// testing  
 
 
+
+
+// get current user pinned post 
+
+router.get("/post/pinned", jwtAuthMiddleware, async (req, res) => {
+    try {
+      const userdetail = req.user; // Get user info from JWT token
+      console.log("userdetail",userdetail)
+  
+      // Check if the user ID is valid (useful only if you're unsure of the format)
+      
+      // Find the user by ID and populate 'pinned.airdrop' to get full details of pinned airdrops
+      const userinfo = await UserModel.findById(userdetail.id).populate('pinned.airdrop')
+      console.log("userinfo", userinfo)
+  
+      if (!userinfo) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Return pinned posts with populated airdrop details
+      return res.status(200).json({
+        success: true,
+        pinnedPosts: userinfo.pinned,  // This will now contain full airdrop data
+      });
+  
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        success: false,
+        message: 'Unable to fetch pinned posts',
+        error: error.message,
+      });
+    }
+  });
+  
 //let's start pinned 
 
 router.get("/pinned/:id", jwtAuthMiddleware, async(req,res)=>{
@@ -159,22 +195,24 @@ router.get("/pinned/:id", jwtAuthMiddleware, async(req,res)=>{
         const isAlreadyPinned = user.pinned.some(pinnedPost => pinnedPost.airdrop.toString() === airdropid )
 
         if(isAlreadyPinned) {
-            return res.status(400).json({ message: 'You have already pinned this post' });
+            user.pinned = user.pinned.filter(pinnedPost => pinnedPost.airdrop.toString() !== airdropid);
+            airdrop.pinnedCount--;
+            airdrop.pinned = airdrop.pinned.filter(pinnedUser => pinnedUser.user.toString() !== userid);
+            await Promise.all([user.save(), airdrop.save()]);
+            return res.status(200).json({ message: 'Airdrop unpinned successfully', success: true });
         }
 
-        
+        else{
+
+       
         // push the pinned user in airdrops and also push pinned airdrops in user
         airdrop.pinned.push({user:user})
         airdrop.pinnedCount++
-        await airdrop.save()
-        
-       user.pinned.push({airdrop:airdrop})
-       user.pinnedCount++
-       await user.save();
-
-       return res.status(200).json({message:"pinned successfully",
-        success: true
-       })
+        user.pinned.push({airdrop:airdrop})
+         user.pinnedCount++
+         await Promise.all([user.save(), airdrop.save()]);
+         return res.status(200).json({ message: 'Airdrop pinned successfully', success: true });
+    }
 
 
     } catch (error) {
@@ -212,6 +250,45 @@ router.get("/yo/count" , async (req,res)=>{
 
 })
 
+//manage to unpinned post
+
+router.get("/unpinned/:id", jwtAuthMiddleware, async(req,res)=>{
+             const airdropid = req.params.id
+             const userid = req.user.id
+
+             try {
+                const airdrop = await AirdropModel.findById(airdropid)
+                const user = await UserModel.findById(userid)
+
+                if(!airdrop){
+                    return res.status(404).json({message:'post not found'})
+                }
+                
+                if(!user){
+                    return res.status(404).json({message:'user not found'})
+                }
+
+                const alreadypinned = user.pinned.some(pinnedPost => pinnedPost.airdrop.toString() === airdropid)
+                if(alreadypinned) {
+                   user.pinned = user.pinned.filter(pinnedPost => pinnedPost.airdrop.toString() !== airdropid)
+                   airdrop.pinnedCount--;
+                   airdrop.pinned = airdrop.pinned.filter(pinnedUser => pinnedUser.user.toString() !== userid);
+                    await Promise.all([user.save(), airdrop.save()]);
+                   return res.status(200).json({ message: 'Airdrop unpinned successfully', success: true });
+                }
+                else{
+                    return res.status(200).json({ message: 'Airdrop was not pinned initially ', success: true }); 
+                }
+
+             } catch (error) {
+                console.log(error);
+                res.status(500).json({
+                    message: "unable to unpinned post",
+                    error: error.message
+                })
+             }
+})
+
 
 // manage like on post & which user like post
 
@@ -240,20 +317,25 @@ try {
   const isAlreadyLiked = airdrop.liked.some(likedPost => likedPost.user.toString() === userid )
 
   if(isAlreadyLiked) {
-      return res.status(400).json({ message: 'You have already Liked this post' });
-  }
 
-  
-  // push the Liked user in airdrops and also increase like count
-  airdrop.liked.push({user:user})
-  airdrop.likedCount++
-  await airdrop.save()
+    airdrop.liked = airdrop.liked.filter(likedPost => likedPost.user.toString() !== userid);
+    airdrop.likedCount--;
+    await airdrop.save();
+
+    return res.status(200).json({ message: "Post unliked successfully", success: true });
+
+  } else{
+
+    // push the Liked user in airdrops and also increase like count
+     airdrop.liked.push({user:user})
+     airdrop.likedCount++
+      await airdrop.save()
 
 
- return res.status(200).json({message:"Liked successfully",
-  success: true
+   return res.status(200).json({message:"Liked successfully",
+   success: true
  })
-
+}
 
 } catch (error) {
   res.status(500).json({
@@ -265,7 +347,6 @@ try {
 
 
 } )
-
 
 // manage like count
 
@@ -284,7 +365,7 @@ router.get("/likes/count" , async (req,res)=>{
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            message: "unable to fetch pinned count",
+            message: "unable to likes count",
             error: error.message
         })
         
