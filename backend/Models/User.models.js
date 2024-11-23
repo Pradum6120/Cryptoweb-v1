@@ -32,7 +32,6 @@ const UserSchema = new Schema({
             airdrop:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Airdroplist",
-                unique: true
             }
         }
      ],

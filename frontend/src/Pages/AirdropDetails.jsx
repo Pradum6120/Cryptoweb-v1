@@ -46,7 +46,7 @@ function AirdropDetails() {
     return (
         <div className='flex flex-col w-full h-[100%]'>
             <Bigbox airdrop={airdrop} />
-            <Bigboxtwo airdrop={airdrop} />
+            
         </div>
     )
 }

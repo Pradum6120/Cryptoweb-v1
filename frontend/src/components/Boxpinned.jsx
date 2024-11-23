@@ -3,7 +3,7 @@ import { SlLike } from "react-icons/sl";
 import { IoBookmark } from "react-icons/io5";
 import { useAuth } from '../store/auth';
 
-function Boxpinned({posts, }) {
+function Boxpinned({posts}) {
 
   const { AuthorizationToken } = useAuth()
 
@@ -20,7 +20,7 @@ function Boxpinned({posts, }) {
 
              if(response.ok){
                const data = await response.json()
-               console.log(data)
+               console.log("unpinned",data)
              }
         }
         catch{
