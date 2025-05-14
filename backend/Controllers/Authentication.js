@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 const UserModel = require("../Models/User.models.js")
 const AirdropModel = require("../Models/Airdrop.models.js")
 const {GenerateJsonWebToken}= require("../Middlewares/jwt.js")
