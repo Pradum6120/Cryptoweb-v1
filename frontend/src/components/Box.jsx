@@ -12,12 +12,12 @@ function Box({ airdropy }) {
   const [pinned, setPinned] = useState(false)
   const [liked, setLiked] = useState(false)
 
-
+    
   const HandelBookmark = async (id) => {
-    console.log(id)
+
 
     try{
-      const response  = await fetch(`http://localhost:8000/api/v1/pinned/${id}`,{
+      const response  = await fetch(`http://localhost:8080/api/v1/pinned/${id}`,{
         method: "GET",
         headers: {
           Authorization: AuthorizationToken
@@ -26,7 +26,7 @@ function Box({ airdropy }) {
       })
        if(response.ok){
         const result =  await response.json()
-        console.log(result)
+        (result)
         
 
        }
@@ -39,7 +39,7 @@ function Box({ airdropy }) {
   const HandleLike = async (id) => {
 
     try{
-      const response  = await fetch(`http://localhost:8000/api/v1/liked/${id}`,{
+      const response  = await fetch(`http://localhost:8080/api/v1/liked/${id}`,{
         method: "GET",
         headers: {
           Authorization: AuthorizationToken
@@ -48,9 +48,7 @@ function Box({ airdropy }) {
       })
        if(response.ok){
         const result =  await response.json()
-        console.log(result)
         setLiked((prev) => !prev);
-        console.log("like = ",liked)
 
        }
     }

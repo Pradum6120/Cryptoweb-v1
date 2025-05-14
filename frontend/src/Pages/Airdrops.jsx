@@ -1,13 +1,20 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Section from './Section';
+import {post } from '../store/UserSlice';
+import { useDispatch} from 'react-redux';
 import { getAllAirdrops } from '../api';
+import { setAllposts } from '../store/UserSlice';
 
 
  
 
 
 function Airdrops() {
+
+  const dispatch = useDispatch();
+ 
+
   const [airdrops, setAirdrops] = useState({
 
     "Allairdrops": [],
@@ -26,8 +33,6 @@ function Airdrops() {
     try {
 
       const {data} = await getAllAirdrops(search, page, limit);
-      //console.log(data.airdrops[0].title)
-      console.log("getting all data - data ", data)
       setAirdrops(data);
       
     } catch (error) {
@@ -36,22 +41,24 @@ function Airdrops() {
        
   }
 
-  
 
   useEffect(() => {
     fetchAirdrops()
   }, []);
 
-  const yo = airdrops.employees
+
+  const clickme = (search='', page = 1, limit = 8)=>{
+    dispatch(post({search, page, limit}))
+  }
    
    
-  console.log("getting final airdrops", yo )
   return (
     <>
   
     <div className=' h-[100%] text-white mb-96'> 
       <div className='flex justify-center'>
       <h1 className="text-shadow-green  text-9xl mb-3">Discover Airdrops </h1>
+      <button className='w-7 h-7 bg-gray-200' onClick={()=>clickme()}>okkkkjiiii</button>
       </div>
       <div className='flex justify-center gap-2 mt-8 '>
         <input className=' bg-transparent focus:text-[#FFFD37]  placeholder-white border border-[#FFFD37] text-zinc-950   outline-none rounded-md p-2 w-[600px]'  type="text" placeholder='Search' />
@@ -59,7 +66,7 @@ function Airdrops() {
       </div>
       
 
-        <Section airdrop = {airdrops.employees}  pagination ={ airdrops.pagination}   fetchAirdrops = {fetchAirdrops}  /> 
+        <Section airdrop = {airdrops.employees}  pagination ={ airdrops.pagination}   fetchAirdrops = {fetchAirdrops} /> 
       
       
     </div>

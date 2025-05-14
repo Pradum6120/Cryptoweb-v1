@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 function Bigbox({airdrop}) {
     const air = airdrop.data
-    console.log(air)
 
   return (
     <div className='h-[500px] w-[100%] flex justify-center items-center'>

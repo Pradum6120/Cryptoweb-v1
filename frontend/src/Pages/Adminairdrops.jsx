@@ -10,7 +10,7 @@ function Adminairdrops() {
 
     const fetchAirdrops = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/allairdropadmin', {
+        const response = await fetch('http://localhost:8080/api/v1/allairdropadmin', {
           method: 'GET',
           headers: {
             Authorization: AuthorizationToken,
@@ -42,7 +42,7 @@ function Adminairdrops() {
   // Delete function
   const deleteAirdrop = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/v1/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: AuthorizationToken,
@@ -51,7 +51,6 @@ function Adminairdrops() {
       const data = await response.json();
       if (response.ok) {
         fetchAirdrops()
-        console.log('Airdrop deleted successfully:', data);
       } else {
         throw new Error(data.message || 'Failed to delete airdrop');
       }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Bigboxtwo({airdrop}) {
   const air = airdrop.data;
-    console.log(air)
   return (
    
       <div className='h-[100%] w-screen flex justify-center items-center mb-28'>

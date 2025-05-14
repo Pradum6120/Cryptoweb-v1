@@ -51,7 +51,6 @@ router.post("/add", CloudinaryFileUploder.fields([
        // const blogImage2Url = req.files.blogimage2[0].path;
        // const blogImage3Url = req.files.blogimage3[0].path;
         
-        console.log('Uploaded files: ', profileImageUrl, blogImage1Url);
         
         // You can pass the image URLs to the next middleware (the `add` controller function)
         req.body.profileimage = profileImageUrl;

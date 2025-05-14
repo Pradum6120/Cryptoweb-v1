@@ -9,7 +9,7 @@ function Bookmarks() {
 
   const pinnedPost = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/post/pinned", {
+      const response = await fetch("http://localhost:8080/api/v1/post/pinned", {
         method: "GET",
         headers: {
           Authorization: AuthorizationToken
@@ -19,7 +19,6 @@ function Bookmarks() {
       if (response.ok) {
         const data = await response.json()
         Setuser(data)
-        console.log("Fetched airdrop data:", data)
       } else {
         console.log("Error while fetching user data")
       }

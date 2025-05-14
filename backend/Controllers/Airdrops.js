@@ -4,7 +4,7 @@ const UserModel = require("../Models/User.models.js")
 const add = async (req, res) => {
     try {
          const body = req.body;
-         console.log("incoming data", body);
+         ("incoming data", body);
 
          // Create a new Airdrop object
         let airdrop = new AirdropModel(body);
@@ -49,7 +49,7 @@ const add = async (req, res) => {
            
        }
         catch (error) {
-        console.log(error)
+        (error)
         res.status(500).json({
             message:"something went wrong",
             error: error.message

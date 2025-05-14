@@ -23,13 +23,12 @@ function SingnUp() {
 
     const handleSubmitSignupForm = async (e)=>{
         e.preventDefault()
-        console.log("working")
         if(!name || !email || !password){
           return handleError("some field are blank")
   
         }
         try {
-          const url = "http://localhost:8000/api/v1/signup"
+          const url = "http://localhost:8080/api/v1/signup"
           const response = await fetch(url, {
             method: 'POST',
             headers:{
@@ -39,7 +38,6 @@ function SingnUp() {
 
           })
           const result = await response.json();
-          console.log(result)
 
           const {success, message}= result;
           if(success){
@@ -48,7 +46,6 @@ function SingnUp() {
             },1000)
           }
 
-          console.log(response)
         } catch (error) {
           handleError(err);
           

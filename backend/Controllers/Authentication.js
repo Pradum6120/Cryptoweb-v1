@@ -9,7 +9,6 @@ const signup = async (req,res)=> {
    
     try {
         const{name,email,password,role}= req.body;
-        console.log(`recieve detail ${name} ${email}`)
          
         const user = await UserModel.findOne({email})
         // if user already register
@@ -25,10 +24,9 @@ const signup = async (req,res)=> {
         //create user
     
         const usermodel = new UserModel({name, email, password, role})
-        console.log(usermodel)
     
         usermodel.password = await bcrypt.hash(password,10)
-        console.log(usermodel.password)
+       
         const response =  await usermodel.save()
         
 
@@ -37,7 +35,6 @@ const signup = async (req,res)=> {
          }
 
          const token = GenerateJsonWebToken(payload);
-         console.log('payload of jwt', token)
 
          
     
@@ -55,7 +52,6 @@ const signup = async (req,res)=> {
             success:false
         })
 
-        console.log(error)
         
     }
 }
@@ -117,11 +113,7 @@ const currentuser = async (req,res)=>{
      try {
         const user =  req.user
         const userdata = await UserModel.findById(user.id)
-        console.log(userdata )
-        
 
-      
-        console.log(userdata)
         res.status(200).json({
           user: userdata
         })
@@ -138,11 +130,7 @@ const users = async (req,res)=>{
     try {
        const user =  req.user
        const usersdata = await UserModel.find()
-       console.log(usersdata )
-       
 
-     
-       console.log(usersdata)
        res.status(200).json({
          user: usersdata
        })
@@ -161,7 +149,6 @@ const users = async (req,res)=>{
 
 const add = async (req,res)=>{
     try {
-        console.log("request body",req.body);
          const {title, description, twitterlink, discrordlink, profileimage, content1, url1, blogimage1,content2, url2, blogimage2,content3, url3, blogimage3} = req.body
          
          const airdrop = new AirdropModel({title, description, twitterlink, discrordlink, profileimage, content1, url1, blogimage1,content2, url2, blogimage2,content3, url3, blogimage3,})
@@ -175,8 +162,6 @@ const add = async (req,res)=>{
             message: " failed to add",
             success:false
         })
-
-        console.log("error hai",error)
     }
 
 }

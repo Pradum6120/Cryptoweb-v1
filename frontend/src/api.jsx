@@ -1,5 +1,5 @@
 
-const base_url ="http://localhost:8000";
+const base_url ="http://localhost:8080";
 
 export const getAllAirdrops = async (search='', page='1', limit='8')=>{
     let url = `${base_url}/api/v1/?search=${search}&page=${page}&limit=${limit}`;
@@ -34,7 +34,7 @@ export const getAirdropbyid = async (id)=>{
     try{
       const response = await fetch(url,options);
       const data = await response.json()
-      console.log("upcomin data from dynamic routes",data)
+
       return data
     }
     

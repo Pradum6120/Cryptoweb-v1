@@ -68,13 +68,9 @@ function AdminAddAirdrop() {
       formDataToSend.append('blogimage1', formData.blogimage1);
     }
 
-    // Debugging: Log all the FormData entries
-    for (let [key, value] of formDataToSend.entries()) {
-      console.log(key, value);
-    }
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/add', {
+      const response = await fetch('http://localhost:8080/api/v1/add', {
         method: 'POST',
         headers: {
           Authorization: AuthorizationToken, // Include the Authorization token for authentication
@@ -83,7 +79,7 @@ function AdminAddAirdrop() {
       });
 
       const data = await response.json();
-      console.log("Response data:", data);
+
 
       if (response.ok) {
         alert('Airdrop added successfully');

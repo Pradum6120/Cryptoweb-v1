@@ -2,6 +2,10 @@ import React from 'react'
 import { Link, useNavigate  } from 'react-router-dom'
 import { useState } from 'react';
 import { useAuth } from '../store/auth';
+import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { settoken } from '../store/UserSlice';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -10,6 +14,7 @@ function Login() {
   const navigate = useNavigate()
 
 const {storetokenInLocalStorage} = useAuth()
+const dispatch = useDispatch()
 
   const userLoginDetail = {
     email,
@@ -18,9 +23,8 @@ const {storetokenInLocalStorage} = useAuth()
 
     const handleSubmitLoginForm = async (e)=>{
         e.preventDefault()
-        console.log("login working")
      try{
-      const url = "http://localhost:8000/api/v1/login";
+      const url = "http://localhost:8080/api/v1/login";
       const response = await fetch(url, {
         method: 'POST',
         headers:{
@@ -30,11 +34,11 @@ const {storetokenInLocalStorage} = useAuth()
 
       });
       const data = await response.json();
-      //console.log(response)
       if(response.ok){
         if(data.success){
-         storetokenInLocalStorage(data.jwt)
-         //localStorage.setItem("token",data.jwt);
+           storetokenInLocalStorage(data.jwt)
+           toast.success('Login Successful!');
+           dispatch(settoken(data.jwt))
           navigate('/');
         }
         else{

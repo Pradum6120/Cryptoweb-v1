@@ -11,7 +11,7 @@ function Boxpinned({posts}) {
 
     const handleUnpinned = async (id)=> {
         try{
-             const response = await fetch(`http://localhost:8000/api/v1/unpinned/${id}`, {
+             const response = await fetch(`http://localhost:8080/api/v1/unpinned/${id}`, {
               method: "GET",
               headers: {
                 Authorization: AuthorizationToken
@@ -20,7 +20,6 @@ function Boxpinned({posts}) {
 
              if(response.ok){
                const data = await response.json()
-               console.log("unpinned",data)
              }
         }
         catch{

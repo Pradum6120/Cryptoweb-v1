@@ -72,8 +72,6 @@ router.post("/add",jwtAuthMiddleware, isAdmin,CloudinaryFileUploder.fields([
         const blogImage1Url = req.files.blogimage1[0].path;
  
 
-        // Log files for debugging (you can remove this in production)
-        console.log('Uploaded files: ', profileImageUrl, blogImage1Url);
  
         // Pass file URLs to the next middleware (add controller)
         req.body.profileimage = profileImageUrl;
@@ -138,13 +136,11 @@ router.get('/:id', getairdropbyid);
 router.get("/post/pinned", jwtAuthMiddleware, async (req, res) => {
     try {
       const userdetail = req.user; // Get user info from JWT token
-      console.log("userdetail",userdetail)
-  
       // Check if the user ID is valid (useful only if you're unsure of the format)
       
       // Find the user by ID and populate 'pinned.airdrop' to get full details of pinned airdrops
       const userinfo = await UserModel.findById(userdetail.id).populate('pinned.airdrop')
-      console.log("userinfo", userinfo)
+    
   
       if (!userinfo) {
         return res.status(404).json({ message: 'User not found' });
@@ -177,7 +173,6 @@ router.get("/pinned/:id", jwtAuthMiddleware, async(req,res)=>{
        
         const airdrop = await AirdropModel.findById(airdropid);
         if(!airdrop){
-            console.log(airdrop)
             return res.status(404).json({message:'Candidate not found'})
         }
 
@@ -299,7 +294,6 @@ try {
  
   const airdrop = await AirdropModel.findById(airdropid);
   if(!airdrop){
-      console.log(airdrop)
       return res.status(404).json({message:'Candidate not found'})
   }
 

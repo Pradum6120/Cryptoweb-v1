@@ -14,7 +14,6 @@ function AirdropDetails() {
         setError(null)
         try {
             const result = await getAirdropbyid(id)
-            console.log("Fetched result:", result)
             setAirdrop(result)
         } catch (error) {
             setError(error.message)
@@ -40,8 +39,6 @@ function AirdropDetails() {
     if (!airdrop) {
         return <div>No airdrop data available.</div>
     }
-
-    console.log("Airdrop data:", airdrop.data)
 
     return (
         <div className='flex flex-col w-full h-[100%]'>

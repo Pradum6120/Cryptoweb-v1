@@ -21,7 +21,7 @@ export const AuthContext = createContext();
  // to get current user detail using jwt token
   const userAuthentication = async ()=>{
     try {
-       const response = await fetch("http://localhost:8000/api/v1/currentuser", {
+       const response = await fetch("http://localhost:8080/api/v1/currentuser", {
            method: 'GET',
            headers:{
                Authorization: AuthorizationToken,
@@ -30,7 +30,6 @@ export const AuthContext = createContext();
 
        if(response.ok) {
            const data = await response.json()
-           console.log("userdata", data.user.pinned)
            setUser(data.user.name)
        }
        else{

@@ -2,31 +2,29 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require('cors');
-require("./Db/index.js"); // Make sure your DB connection is correct
+const connection = require('./Db/index'); // Import the DB connection
 require('dotenv').config(); // Ensure you have your .env file for sensitive info
-//const AuthRoute = require("./Routes/routes"); // Authentication route file
-// const ProductRouter = require("./Routes/Product"); // Uncomment if you have a ProductRouter
-
 const router = require("./Routes/routes"); // Import the controller for adding airdrops
-
 const PORT = process.env.PORT; 
+const path = require('path');
 
-// Middleware setup
+connection()
+
+const _dirname = path.resolve();
+
+
+// Middleware 
 app.use(cors())
+app.use(bodyParser.json()); 
+app.use("/api/v1", router); 
 
- // Enable CORS for all routes (you can configure it further if needed)
-app.use(bodyParser.json()); // Middleware to parse JSON data from requests
-
-// Route definitions
-app.use("/api/v1", router); // Define the route for adding a new airdrop
-
-// Use Auth routes with a proper prefix
-//app.use("/api/v1", AuthRoute); // Correctly prefixed route for auth APIs
-
-// Uncomment the following line if you have a ProductRouter
+app.use(express.static(path.join(_dirname, "/frontend/dist")))
+app.get('*',(_,res)=>{
+     res.sendFile(path.resolve(_dirname, 'frontend', 'dist', 'index.html'))
+})
 
 
-// Start server
+//server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    (`Server running on port ${PORT}`);
 });

@@ -10,7 +10,7 @@ function Adminusers() {
   
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/users', {
+        const response = await fetch('http://localhost:8080/api/v1/users', {
           method: 'GET',
           headers: {
             Authorization: AuthorizationToken, // Include the Authorization token for authentication
@@ -20,7 +20,6 @@ function Adminusers() {
         
         if (response.ok) {
           setUsers(data); // Assuming `data` is an array of users
-          console.log('All users data:', data); // log fetched data (not `users` state, which is updated after)
         } else {
           alert(`Error: ${data.message}`);
         }
@@ -40,7 +39,7 @@ function Adminusers() {
 
   const HandleDelete = async (id) => {
       try {
-        const response = await fetch(`http://localhost:8000/api/v1/deleteuser/${id}`,{
+        const response = await fetch(`http://localhost:8080/api/v1/deleteuser/${id}`,{
           method: 'DELETE',
         headers: {
           Authorization: AuthorizationToken,
@@ -49,7 +48,6 @@ function Adminusers() {
         const data = await response.json();
         if (response.ok) {
           fetchUsers()
-          console.log('Airdrop deleted successfully:', data);
         } else {
           throw new Error(data.message || 'Failed to delete airdrop');
         }

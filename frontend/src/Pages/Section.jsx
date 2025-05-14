@@ -1,7 +1,16 @@
 import React from 'react';
 import Box from '../components/Box';
+import { useSelector } from 'react-redux';
 
 function Section({ airdrop, pagination ,  fetchAirdrops }) {
+  
+
+  const allpost = useSelector((state) => state.users.allposts);
+
+
+
+  //airdrop = {airdrops.employees}  pagination ={ airdrops.pagination}   fetchAirdrops = {fetchAirdrops}
+
   const{currentpage, totalPages} = pagination
   const pageNumbers = Array.from({length: totalPages}, (_, index) => index +1)
 
@@ -22,11 +31,23 @@ function Section({ airdrop, pagination ,  fetchAirdrops }) {
    }
   }
 
+
+  const BsYoutube = () => {
+    allpost.employees.map((air) => {
+    });
+  }
+
+
+
   return (
     <>
+  
     <div className="flex items-center mr-5 ml-5 mt-9 mb-0 gap-5 justify-center h-[100%] flex-wrap ">
-      {airdrop && airdrop.length > 0 ? (
-        airdrop.map((air) => (
+      <button  onClick={()=>BsYoutube()}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Click Me
+      </button>
+      { airdrop &&  airdrop.length > 0 ? (
+       airdrop.map((air) => (
           <Box key={air.id} airdropy={air} />
         ))
       ) : (

@@ -37,6 +37,7 @@ function Navbar() {
         <NavLink to="/" className="hover:text-blue-400 transition-colors">Home</NavLink>
         <NavLink to="/airdrops" className="hover:text-blue-400 transition-colors">Airdrops</NavLink>
         <NavLink to="/bookmarks" className="hover:text-blue-400 transition-colors">Bookmark</NavLink>
+        <NavLink to="/store" className="hover:text-blue-400 transition-colors">store</NavLink>
         <NavLink to="/admin" className="hover:text-blue-400 transition-colors">Admin</NavLink>
       </div>
 
