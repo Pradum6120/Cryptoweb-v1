@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const base_url ="http://localhost:8080";
+const base_url ="https://cryptoweb-8nuf.onrender.com";
 
 // fetch all posts 
 export const post = createAsyncThunk("posts", async ({search='', page = 1, limit = 8}, {rejectWithValue })=>{

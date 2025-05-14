@@ -12,9 +12,13 @@ connection()
 
 const _dirname = path.resolve();
 
+const corsOption = {
+    origin: "https://cryptoweb-8nuf.onrender.com",
+    Credentials : true
+}
 
 // Middleware 
-app.use(cors())
+app.use(cors(corsOption))
 app.use(bodyParser.json()); 
 app.use("/api/v1", router); 
 

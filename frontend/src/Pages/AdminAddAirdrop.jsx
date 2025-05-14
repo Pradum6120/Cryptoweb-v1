@@ -70,7 +70,7 @@ function AdminAddAirdrop() {
 
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/add', {
+      const response = await fetch('https://cryptoweb-8nuf.onrender.com/api/v1/add', {
         method: 'POST',
         headers: {
           Authorization: AuthorizationToken, // Include the Authorization token for authentication

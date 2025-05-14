@@ -10,7 +10,7 @@ function Adminairdrops() {
 
     const fetchAirdrops = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/allairdropadmin', {
+        const response = await fetch('https://cryptoweb-8nuf.onrender.com/api/v1/allairdropadmin', {
           method: 'GET',
           headers: {
             Authorization: AuthorizationToken,
@@ -42,7 +42,7 @@ function Adminairdrops() {
   // Delete function
   const deleteAirdrop = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/${id}`, {
+      const response = await fetch(`https://cryptoweb-8nuf.onrender.com/api/v1/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: AuthorizationToken,

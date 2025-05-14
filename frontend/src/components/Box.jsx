@@ -17,7 +17,7 @@ function Box({ airdropy }) {
 
 
     try{
-      const response  = await fetch(`http://localhost:8080/api/v1/pinned/${id}`,{
+      const response  = await fetch(`https://cryptoweb-8nuf.onrender.com/api/v1/pinned/${id}`,{
         method: "GET",
         headers: {
           Authorization: AuthorizationToken
@@ -39,7 +39,7 @@ function Box({ airdropy }) {
   const HandleLike = async (id) => {
 
     try{
-      const response  = await fetch(`http://localhost:8080/api/v1/liked/${id}`,{
+      const response  = await fetch(`https://cryptoweb-8nuf.onrender.com/api/v1/liked/${id}`,{
         method: "GET",
         headers: {
           Authorization: AuthorizationToken

@@ -9,7 +9,7 @@ function Bookmarks() {
 
   const pinnedPost = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v1/post/pinned", {
+      const response = await fetch("https://cryptoweb-8nuf.onrender.com/api/v1/post/pinned", {
         method: "GET",
         headers: {
           Authorization: AuthorizationToken

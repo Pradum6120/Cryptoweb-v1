@@ -1,5 +1,5 @@
 
-const base_url ="http://localhost:8080";
+const base_url ="https://cryptoweb-8nuf.onrender.com";
 
 export const getAllAirdrops = async (search='', page='1', limit='8')=>{
     let url = `${base_url}/api/v1/?search=${search}&page=${page}&limit=${limit}`;

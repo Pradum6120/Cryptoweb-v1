@@ -11,7 +11,7 @@ function Boxpinned({posts}) {
 
     const handleUnpinned = async (id)=> {
         try{
-             const response = await fetch(`http://localhost:8080/api/v1/unpinned/${id}`, {
+             const response = await fetch(`https://cryptoweb-8nuf.onrender.com/api/v1/unpinned/${id}`, {
               method: "GET",
               headers: {
                 Authorization: AuthorizationToken

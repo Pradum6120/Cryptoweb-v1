@@ -32,20 +32,11 @@ function Section({ airdrop, pagination ,  fetchAirdrops }) {
   }
 
 
-  const BsYoutube = () => {
-    allpost.employees.map((air) => {
-    });
-  }
-
-
 
   return (
     <>
   
     <div className="flex items-center mr-5 ml-5 mt-9 mb-0 gap-5 justify-center h-[100%] flex-wrap ">
-      <button  onClick={()=>BsYoutube()}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Click Me
-      </button>
       { airdrop &&  airdrop.length > 0 ? (
        airdrop.map((air) => (
           <Box key={air.id} airdropy={air} />

@@ -21,7 +21,7 @@ export const AuthContext = createContext();
  // to get current user detail using jwt token
   const userAuthentication = async ()=>{
     try {
-       const response = await fetch("http://localhost:8080/api/v1/currentuser", {
+       const response = await fetch("https://cryptoweb-8nuf.onrender.com/api/v1/currentuser", {
            method: 'GET',
            headers:{
                Authorization: AuthorizationToken,

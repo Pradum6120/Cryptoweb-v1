@@ -46,11 +46,6 @@ function Airdrops() {
     fetchAirdrops()
   }, []);
 
-
-  const clickme = (search='', page = 1, limit = 8)=>{
-    dispatch(post({search, page, limit}))
-  }
-   
    
   return (
     <>
@@ -58,7 +53,6 @@ function Airdrops() {
     <div className=' h-[100%] text-white mb-96'> 
       <div className='flex justify-center'>
       <h1 className="text-shadow-green  text-9xl mb-3">Discover Airdrops </h1>
-      <button className='w-7 h-7 bg-gray-200' onClick={()=>clickme()}>okkkkjiiii</button>
       </div>
       <div className='flex justify-center gap-2 mt-8 '>
         <input className=' bg-transparent focus:text-[#FFFD37]  placeholder-white border border-[#FFFD37] text-zinc-950   outline-none rounded-md p-2 w-[600px]'  type="text" placeholder='Search' />

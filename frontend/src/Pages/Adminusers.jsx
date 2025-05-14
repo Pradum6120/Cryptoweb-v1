@@ -10,7 +10,7 @@ function Adminusers() {
   
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/users', {
+        const response = await fetch('https://cryptoweb-8nuf.onrender.com/api/v1/users', {
           method: 'GET',
           headers: {
             Authorization: AuthorizationToken, // Include the Authorization token for authentication
@@ -39,7 +39,7 @@ function Adminusers() {
 
   const HandleDelete = async (id) => {
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/deleteuser/${id}`,{
+        const response = await fetch(`https://cryptoweb-8nuf.onrender.com/api/v1/deleteuser/${id}`,{
           method: 'DELETE',
         headers: {
           Authorization: AuthorizationToken,
