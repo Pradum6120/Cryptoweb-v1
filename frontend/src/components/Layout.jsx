@@ -5,10 +5,9 @@ import { Outlet } from 'react-router-dom'
 
 function Layout() {
   return (
-    <div className='bg-[url("/theme.png")]'>
+    <div className="bg-[url('/theme.png')]">
      <Navbar/> 
      <Outlet/>
-     <Footer/>
     </div>
   )
 }
